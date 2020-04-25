@@ -12,6 +12,7 @@ export class RecipeListComponent implements OnInit {
   
   //defining the type of the recipes to an Array of Recipe (the model created)
   recipes: Recipe[] = [
+    new Recipe('A Test Recipe', 'This is simply a text', 'https://i0.wp.com/images-prod.healthline.com/hlcmsresource/images/AN_images/healthy-eating-ingredients-1296x728-header.jpg?w=1155&h=1528'),
     new Recipe('A Test Recipe', 'This is simply a text', 'https://i0.wp.com/images-prod.healthline.com/hlcmsresource/images/AN_images/healthy-eating-ingredients-1296x728-header.jpg?w=1155&h=1528')
   ];
 
