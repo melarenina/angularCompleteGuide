@@ -6,8 +6,9 @@
 
         <div class="navbar-default">
             <ul class="nav navbar-nav">
-                <li><a href="#">Recipes</a></li>
-                <li><a href="#">Shopping List</a></li>
+            <!--methods to know which one where selected and show its respective content-->
+                <li><a href="#" (click)="onSelect('recipe')">Recipes</a></li>
+                <li><a href="#"(click)="onSelect('shopping-list')">Shopping List</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">

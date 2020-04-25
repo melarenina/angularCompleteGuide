@@ -1,3 +1,4 @@
+import { Recipe } from './../../recipe.model';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./recipe-item.component.css']
 })
 export class RecipeItemComponent implements OnInit {
+  
+  recipe: Recipe;
 
   constructor() { }
 
