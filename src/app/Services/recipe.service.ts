@@ -8,8 +8,16 @@ export class RecipeService{
     recipeSelected = new EventEmitter<Recipe>();
 
     private recipes: Recipe[] = [
-        new Recipe('A Test Recipe', 'This is simply a text', 'https://i0.wp.com/images-prod.healthline.com/hlcmsresource/images/AN_images/healthy-eating-ingredients-1296x728-header.jpg?w=1155&h=1528'),
-        new Recipe('The Second Test Recipe', 'This is simply a text', 'https://i0.wp.com/images-prod.healthline.com/hlcmsresource/images/AN_images/healthy-eating-ingredients-1296x728-header.jpg?w=1155&h=1528')
+        new Recipe(
+            'Tasty Schnitzel',
+            'A super tasty Schnitzel - just awesome!',
+            'https://www.telegraph.co.uk/content/dam/food-and-drink/2019/06/05/Chicken-Schnitzel-PHOTOGRAPHY-Andrew-Twort-xlarge_trans_NvBQzQNjv4BqYVJfVX8lOXOA23ylB4y8VVVse9JsN00kzbUr3IXHaGo.jpg',
+            []),
+        new Recipe(
+            'Big Fat Burguer',
+            'What else you need to say?',
+            'https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/cf29c385555335.5d7fb3c164383.jpg',
+            [])
       ];
 
       getRecipe(){
