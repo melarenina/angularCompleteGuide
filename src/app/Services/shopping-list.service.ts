@@ -25,5 +25,12 @@ export class ShoppingListService{
         return this.ingredients.slice();
     }
 
+    addIngredients(ingredients: Ingredient[]){
+        // '...' means the spread operator, which will transform our array into a list, so it can add
+        // one element at a time, and not the whole array as one element
+        this.ingredients.push(...ingredients);
+        this.ingredientsChanged.emit(this.ingredients.slice())
+    }
+
 }
 

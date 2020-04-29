@@ -1,3 +1,4 @@
+import { ShoppingListService } from './shopping-list.service';
 import { Injectable, EventEmitter } from '@angular/core';
 import { Recipe } from '../recipes/recipe.model';
 import { Ingredient } from '../shared/ingredient.model';
@@ -7,6 +8,8 @@ import { Ingredient } from '../shared/ingredient.model';
 export class RecipeService{
 
     recipeSelected = new EventEmitter<Recipe>();
+
+    constructor(private slService: ShoppingListService){}
 
     private recipes: Recipe[] = [
         new Recipe(
@@ -31,5 +34,9 @@ export class RecipeService{
           //  The slice will return a copy of the current array, so if any change happens
           // It wont affect the array
           return this.recipes.slice();
+      }
+
+      addIngredientsToShoppingList(ingredients: Ingredient[]){
+        this.slService.addIngredients(ingredients);
       }
 }
