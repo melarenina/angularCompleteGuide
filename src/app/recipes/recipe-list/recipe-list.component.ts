@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 // importing the model to be used as a type below
 import { Recipe } from '../recipe.model';
 import { RecipeService } from 'src/app/Services/recipe.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-recipe-list',
@@ -13,11 +14,16 @@ export class RecipeListComponent implements OnInit {
 
   recipes: Recipe [];
 
-  constructor(private recipe: RecipeService) { }
+  constructor(private recipe: RecipeService,
+              private router: Router,
+              private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.recipes = this.recipe.getRecipes();
   }
 
+  onNewRecipe(){
+    this.router.navigate(['new'], {relativeTo: this.route});
+  }
 
 }
