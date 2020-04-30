@@ -30,10 +30,14 @@ export class RecipeService{
             ])
       ];
 
-      getRecipe(){
+      getRecipes(){
           //  The slice will return a copy of the current array, so if any change happens
           // It wont affect the array
           return this.recipes.slice();
+      }
+
+      getRecipe(index: number){
+          return this.recipes[index];
       }
 
       addIngredientsToShoppingList(ingredients: Ingredient[]){
