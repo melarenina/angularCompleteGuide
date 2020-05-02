@@ -36,6 +36,12 @@ export class ShoppingListService{
         return this.ingredients.slice();
     }
 
+    deleteIngredient(index: number){
+        // Removing the ingredient
+        this.ingredients.splice(index, 1);
+        this.ingredientsChanged.next(this.ingredients.slice());
+    }
+
     addIngredients(ingredients: Ingredient[]){
         // '...' means the spread operator, which will transform our array into a list, so it can add
         // one element at a time, and not the whole array as one element
