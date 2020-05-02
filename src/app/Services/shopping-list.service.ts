@@ -25,6 +25,11 @@ export class ShoppingListService{
         return this.ingredients[index];
     }
 
+    updateIngredient(index: number, newIngredient: Ingredient){
+        this.ingredients[index] = newIngredient;
+        this.ingredientsChanged.next(this.ingredients.slice());
+    }
+
     getIngredients(){
         //  The slice will return a copy of the current array, so if any change happens
         // It wont affect the array
