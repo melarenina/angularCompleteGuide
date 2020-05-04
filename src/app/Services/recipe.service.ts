@@ -53,7 +53,8 @@ export class RecipeService{
       //   new Recipe(
       //       'Tasty Schnitzel',
       //       'A super tasty Schnitzel - just awesome!',
-      //       'https://www.telegraph.co.uk/content/dam/food-and-drink/2019/06/05/Chicken-Schnitzel-PHOTOGRAPHY-Andrew-Twort-xlarge_trans_NvBQzQNjv4BqYVJfVX8lOXOA23ylB4y8VVVse9JsN00kzbUr3IXHaGo.jpg',
+      //       'https://www.telegraph.co.uk/content/dam/food-and-drink/2019/06/05/
+      //       Chicken-Schnitzel-PHOTOGRAPHY-Andrew-Twort-xlarge_trans_NvBQzQNjv4BqYVJfVX8lOXOA23ylB4y8VVVse9JsN00kzbUr3IXHaGo.jpg',
       //       [
       //           new Ingredient('Meat', 1),
       //           new Ingredient('French Fries', 20)
