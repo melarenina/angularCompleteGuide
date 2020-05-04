@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Recipe } from '../recipes/recipe.model';
 import { DataStorageService } from './data-storage.service';
+import { RecipeService } from './recipe.service';
 
 @Injectable({providedIn: 'root'})
 
@@ -10,9 +11,17 @@ import { DataStorageService } from './data-storage.service';
 
 export class RecipesResolverService implements Resolve<Recipe[]>{
 
-    constructor(private dsService: DataStorageService){}
+    constructor(private dsService: DataStorageService,
+                private recipesService: RecipeService){}
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot){
-        return this.dsService.fetchRecipes();
+        const recipes = this.recipesService.getRecipes();
+
+        // Checking if there is any recipe loaded
+        if (recipes.length === 0){
+            return this.dsService.fetchRecipes();
+        }else{
+            return recipes;
+        }
     }
 }
