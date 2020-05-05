@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { throwError, Subject } from 'rxjs';
+import { User } from '../Auth/user.model';
 
 export interface AuthResponseData{
     kind: string;
@@ -17,6 +18,8 @@ export interface AuthResponseData{
 
 export class AuthService{
 
+    user = new Subject<User>();
+
     constructor(private http: HttpClient){}
 
     signUp(email: string, password: string){
@@ -27,7 +30,16 @@ export class AuthService{
                 password,
                 returnSecureToken: true
             }
-        ).pipe(catchError(this.handleError));
+        ).pipe(catchError(this.handleError), // Tap allows us to perform some action, without changing the response.
+            tap(resData => {                // Just runs some code with the data you get back from the observable
+                this.handleAuthentication(
+                    resData.email,
+                    resData.localId,
+                    resData.idToken,
+                    +resData.expiresIn
+                );
+            })
+        );
     }
 
     login(email: string, password: string){
@@ -38,8 +50,30 @@ export class AuthService{
                 password,
                 returnSecureToken: true
             }
-        ).pipe(catchError(this.handleError));
+        ).pipe(catchError(this.handleError), // Tap allows us to perform some action, without changing the response.
+            tap(resData => {                // Just runs some code with the data you get back from the observable
+                this.handleAuthentication(
+                    resData.email,
+                    resData.localId,
+                    resData.idToken,
+                    +resData.expiresIn
+                );
+            })
+        );
     }
+
+    private handleAuthentication(email: string, userId: string, token: string, expiresIn: number){
+        // The expires in comes in seconds. So we add it to the time we have now, and multiply for 1000
+        // So that we can get the expiration date in miliseconds, conerted to a date because of the new date
+        const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
+        const user = new User(
+            email,
+            userId,
+            token,
+            expirationDate
+        );
+        this.user.next(user);
+
 
     private handleError(errorResponse: HttpErrorResponse){
         let errorMessage = 'An unklnown error occurred!';
