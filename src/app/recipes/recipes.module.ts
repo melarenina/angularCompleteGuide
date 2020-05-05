@@ -9,6 +9,8 @@ import { RecipeItemComponent } from './recipe-list/recipe-item/recipe-item.compo
 import { RecipeStartComponent } from './recipe-start/recipe-start.component';
 import { RecipeEditComponent } from './recipe-edit/recipe-edit.component';
 import { AppRoutingModule } from '../app-routing.module';
+import { RouterModule } from '@angular/router';
+import { RecipesRoutingModule } from './recipes-routing.module';
 
 
 
@@ -22,9 +24,10 @@ import { AppRoutingModule } from '../app-routing.module';
         RecipeEditComponent,
     ],
     imports: [
-        AppRoutingModule,
+        RouterModule,
         ReactiveFormsModule,
-        CommonModule
+        CommonModule,
+        RecipesRoutingModule
     ],
     providers: [
 
