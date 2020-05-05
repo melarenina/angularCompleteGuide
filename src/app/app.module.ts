@@ -48,7 +48,12 @@ import { PlaceHolderDirective } from './shared/placeholder/placeholder.directive
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [RecipeService, ShoppingListService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}],
+  // All the services you want to provide (or use the providedin on the injectable)
+  providers: [RecipeService,
+              ShoppingListService,
+              {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}
+            ],
+  // Which component is available right in that index html file
   bootstrap: [AppComponent]
 })
 export class AppModule { }

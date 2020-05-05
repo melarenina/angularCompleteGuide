@@ -4,7 +4,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { RecipesComponent } from './recipes/recipes.component';
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { RecipeStartComponent } from './recipes/recipe-start/recipe-start.component';
-import { Recipe } from './recipes/recipe.model';
 import { RecipeDetailComponent } from './recipes/recipe-detail/recipe-detail.component';
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
 import { RecipesResolverService } from './Services/recipes-resolver.service';
@@ -13,7 +12,7 @@ import { AuthGuard } from './Auth/auth.guard';
 
 const appRoutes: Routes = [
 
-    // All parameters routes must be at the bottom 
+    // All parameters routes must be at the bottom
 
     // -------------------HOME--------------------
     { path: '', redirectTo: '/recipes', pathMatch: 'full'},
@@ -39,7 +38,8 @@ const appRoutes: Routes = [
 
 @NgModule({
     imports: [RouterModule.forRoot(appRoutes)],
-    exports: [RouterModule]
+    exports: [RouterModule] // Every module works on its own, in angular.
+                            // If you don't export, you can't access it from other modules
 })
 
 export class AppRoutingModule{
