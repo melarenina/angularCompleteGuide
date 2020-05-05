@@ -23,6 +23,10 @@ export class AuthComponent{
         this.isLoginMode = !this.isLoginMode;
     }
 
+    onHadleError(){
+        this.error = null;
+    }
+
     onSubmit(formData: NgForm){
 
         if ( !formData.valid ){

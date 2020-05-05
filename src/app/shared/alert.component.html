@@ -1,8 +1,8 @@
-<div class="backdrop"></div>
+<div class="backdrop" (click)="onClose()"></div>
 <div class="alert-box">
     <strong><p>{{ message }}</p></strong>
     <div class="alert-box-actions">
-        <button class="btn btn-primary">
+        <button class="btn btn-primary" (click)="onClose()">
             Close
         </button>
     </div>
