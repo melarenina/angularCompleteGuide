@@ -28,7 +28,7 @@ export class AuthInterceptorService implements HttpInterceptor{
                 }
                 // Firebase API need the token as a query params. Others APIS usually get as a header
                 const modifiedReq = req.clone({params: new HttpParams().set('auth', user.token)});
-                return next.handle(req);
+                return next.handle(modifiedReq);
             })
         );
 
