@@ -21,6 +21,8 @@ export class AuthService{
     // BehaviorSubject allows us to get access to the current user, even after that user has been emitted
     user = new BehaviorSubject<User>(null);
 
+    private tokenExpirationTimer: any;
+
     constructor(private http: HttpClient,
                 private router: Router){}
 
@@ -68,21 +70,15 @@ export class AuthService{
         // Passgin an null "user"
         this.user.next(null);
         this.router.navigate(['/auth']);
-    }
 
-    private handleAuthentication(email: string, userId: string, token: string, expiresIn: number){
-        // The expires in comes in seconds. So we add it to the time we have now, and multiply for 1000
-        // So that we can get the expiration date in miliseconds, conerted to a date because of the new date
-        const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
-        const user = new User(
-            email,
-            userId,
-            token,
-            expirationDate
-        );
-        this.user.next(user);
-        // putting the user in the local storage of the browser
-        localStorage.setItem('userData', JSON.stringify(user));
+        // Cleaning the user from the local storage
+        localStorage.removeItem('userData');
+
+        if (this.tokenExpirationTimer){
+            clearTimeout(this.tokenExpirationTimer);
+        }
+
+        this.tokenExpirationTimer = null;
     }
 
     autoLogin(){
@@ -108,8 +104,36 @@ export class AuthService{
         // Checking if it has a valid token
         if (loadedUser.token) {
             this.user.next(loadedUser);
+                                                // Future date of expiration            -  Current Date (in miliseconds)
+            const expirationDuration = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
+            this.autoLogout(expirationDuration);
         }
 
+    }
+
+    autoLogout(expirationDuration: number){
+        this.tokenExpirationTimer = setTimeout(() => {
+            this.logout();
+        } , expirationDuration);
+    }
+
+    private handleAuthentication(email: string, userId: string, token: string, expiresIn: number){
+        // The expires in comes in seconds. So we add it to the time we have now, and multiply for 1000
+        // So that we can get the expiration date in miliseconds, conerted to a date because of the new date
+        const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
+        const user = new User(
+            email,
+            userId,
+            token,
+            expirationDate
+        );
+        this.user.next(user);
+
+        // To start the counting of the token, passing the value in miliseconds
+        this.autoLogout(expiresIn * 1000);
+
+        // putting the user in the local storage of the browser
+        localStorage.setItem('userData', JSON.stringify(user));
     }
 
     private handleError(errorResponse: HttpErrorResponse){
