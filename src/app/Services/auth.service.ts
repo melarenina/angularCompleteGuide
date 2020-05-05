@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
 import { throwError, Subject, BehaviorSubject } from 'rxjs';
 import { User } from '../Auth/user.model';
+import { Router } from '@angular/router';
 
 export interface AuthResponseData{
     kind: string;
@@ -20,7 +21,8 @@ export class AuthService{
     // BehaviorSubject allows us to get access to the current user, even after that user has been emitted
     user = new BehaviorSubject<User>(null);
 
-    constructor(private http: HttpClient){}
+    constructor(private http: HttpClient,
+                private router: Router){}
 
     signUp(email: string, password: string){
         return this.http.post<AuthResponseData>(
@@ -60,6 +62,12 @@ export class AuthService{
                 );
             })
         );
+    }
+
+    logout(){
+        // Passgin an null "user"
+        this.user.next(null);
+        this.router.navigate(['/auth']);
     }
 
     private handleAuthentication(email: string, userId: string, token: string, expiresIn: number){
