@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
-import { throwError, Subject } from 'rxjs';
+import { throwError, Subject, BehaviorSubject } from 'rxjs';
 import { User } from '../Auth/user.model';
 
 export interface AuthResponseData{
@@ -17,8 +17,8 @@ export interface AuthResponseData{
 @Injectable({providedIn: 'root'})
 
 export class AuthService{
-
-    user = new Subject<User>();
+    // BehaviorSubject allows us to get access to the current user, even after that user has been emitted
+    user = new BehaviorSubject<User>(null);
 
     constructor(private http: HttpClient){}
 
