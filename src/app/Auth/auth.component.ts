@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ComponentFactoryResolver } from '@angular/core';
 import { NgForm, Form } from '@angular/forms';
 import { AuthService, AuthResponseData } from '../Services/auth.service';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { AlertComponent } from '../shared/alert.component';
 
 @Component({
     selector: 'app-auth',
@@ -17,10 +18,19 @@ export class AuthComponent{
     error: string = null;
 
     constructor(private authService: AuthService,
-                private router: Router){}
+                private router: Router,
+                private componentFactoryResolver: ComponentFactoryResolver){}
+                // Component factory allows us to get access to the component factory, in which we pass the
+                // component we want to have access, so that angular creates it for us
 
     onSwitchMode(){
         this.isLoginMode = !this.isLoginMode;
+    }
+
+    private showErrorAlert(errorMessage: string){
+        const alertCmpFactory = this.componentFactoryResolver.resolveComponentFactory(AlertComponent);
+
+        
     }
 
     onHadleError(){
@@ -54,6 +64,7 @@ export class AuthComponent{
 
             console.log(errorMessage);
             this.error = errorMessage;
+            this.showErrorAlert(errorMessage);
             this.isLoading = false;
             }
         );
