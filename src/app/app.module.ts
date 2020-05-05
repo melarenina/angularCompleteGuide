@@ -5,10 +5,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { ShoppingListModule } from './shopping-list/shopping-list.module';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core.module';
-import { AuthModule } from './Auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -19,10 +17,8 @@ import { AuthModule } from './Auth/auth.module';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ShoppingListModule,
     SharedModule,
     CoreModule,
-    AuthModule
   ],
   // All the services you want to provide (or use the providedin on the injectable)
   providers: [],
