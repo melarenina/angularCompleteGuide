@@ -7,14 +7,10 @@ import { AuthComponent } from './Auth/auth.component';
 const appRoutes: Routes = [
 
     // All parameters routes must be at the bottom
-
     // -------------------HOME--------------------
     { path: '', redirectTo: '/recipes', pathMatch: 'full'},
     // -------------------HOME--------------------
 
-    // -------------------AUTHENTICATION--------------------
-    { path: 'auth', component: AuthComponent},
-    // -------------------AUTHENTICATION--------------------
 ];
 
 @NgModule({

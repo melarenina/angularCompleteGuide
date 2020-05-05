@@ -11,23 +11,22 @@ import { RecipesModule } from './recipes/recipes.module';
 import { ShoppingListModule } from './shopping-list/shopping-list.module';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core.module';
+import { AuthModule } from './Auth/auth.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    AuthComponent,
   ],
   imports: [
-    FormsModule,
     BrowserModule,
-    ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
     RecipesModule,
     ShoppingListModule,
     SharedModule,
-    CoreModule
+    CoreModule,
+    AuthModule
   ],
   // All the services you want to provide (or use the providedin on the injectable)
   providers: [],
