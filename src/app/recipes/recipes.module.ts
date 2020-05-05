@@ -11,6 +11,7 @@ import { RecipeEditComponent } from './recipe-edit/recipe-edit.component';
 import { AppRoutingModule } from '../app-routing.module';
 import { RouterModule } from '@angular/router';
 import { RecipesRoutingModule } from './recipes-routing.module';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -26,7 +27,7 @@ import { RecipesRoutingModule } from './recipes-routing.module';
     imports: [
         RouterModule,
         ReactiveFormsModule,
-        CommonModule,
+        SharedModule,
         RecipesRoutingModule
     ],
     providers: [
