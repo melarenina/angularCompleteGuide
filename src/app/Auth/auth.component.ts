@@ -38,8 +38,10 @@ export class AuthComponent{
         .subscribe(resData => {
             console.log(resData);
             this.isLoading = false;
-        }, error => {
-            this.error = 'An error ocurred: ' + error.message;
+        }, errorMessage => {
+
+            console.log(errorMessage);
+            this.error = errorMessage;
             this.isLoading = false;
             }
         );
