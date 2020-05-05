@@ -9,6 +9,7 @@ import { RecipeDetailComponent } from './recipes/recipe-detail/recipe-detail.com
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
 import { RecipesResolverService } from './Services/recipes-resolver.service';
 import { AuthComponent } from './Auth/auth.component';
+import { AuthGuard } from './Auth/auth.guard';
 
 const appRoutes: Routes = [
 
@@ -19,7 +20,7 @@ const appRoutes: Routes = [
     // -------------------HOME--------------------
 
     // -------------------RECIPES--------------------
-    { path: 'recipes', component: RecipesComponent, children: [
+    { path: 'recipes', component: RecipesComponent, canActivate: [AuthGuard], children: [
         { path: '', component: RecipeStartComponent },
         { path: 'new', component: RecipeEditComponent },
         { path: ':id', component: RecipeDetailComponent, resolve: [RecipesResolverService] },
