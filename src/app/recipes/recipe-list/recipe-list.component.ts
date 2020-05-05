@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 
 // importing the model to be used as a type below
 import { Recipe } from '../recipe.model';
-import { RecipeService } from 'src/app/Services/recipe.service';
+import { RecipeService } from 'src/app/recipes/recipe.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 

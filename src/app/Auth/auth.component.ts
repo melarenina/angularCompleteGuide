@@ -1,10 +1,11 @@
 import { Component, ComponentFactoryResolver, ViewChild, OnDestroy } from '@angular/core';
 import { NgForm, Form } from '@angular/forms';
-import { AuthService, AuthResponseData } from '../Services/auth.service';
+
 import { Observable, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { AlertComponent } from '../shared/alert.component';
 import { PlaceHolderDirective } from '../shared/placeholder/placeholder.directive';
+import { AuthService, AuthResponseData } from './auth.service';
 
 @Component({
     selector: 'app-auth',

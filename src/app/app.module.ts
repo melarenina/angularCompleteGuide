@@ -12,14 +12,14 @@ import { RecipeDetailComponent } from './recipes/recipe-detail/recipe-detail.com
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component';
 import { DropdownDirective } from './Directives/dropdown.directive';
-import { RecipeService } from './Services/recipe.service';
-import { ShoppingListService } from './Services/shopping-list.service';
+import { RecipeService } from './recipes/recipe.service';
+import { ShoppingListService } from './shopping-list/shopping-list.service';
 import { AppRoutingModule } from './app-routing.module';
 import { RecipeStartComponent } from './recipes/recipe-start/recipe-start.component';
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
 import { AuthComponent } from './Auth/auth.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
-import { AuthInterceptorService } from './Services/auth-interceptor.service';
+import { AuthInterceptorService } from './Auth/auth-interceptor.service';
 import { AlertComponent } from './shared/alert.component';
 import { PlaceHolderDirective } from './shared/placeholder/placeholder.directive';
 
