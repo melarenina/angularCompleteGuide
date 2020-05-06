@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { ShoppingListService } from './shopping-list.service';
 import { Ingredient } from '../shared/ingredient.model';
 import { LoggingService } from '../logging.service';
 import * as fromShoppingList from './store (ngrx)/shooping-list.reducer';
@@ -18,8 +17,7 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   ingredients: Observable<{ingredients: Ingredient[]}>; // Because this is the data we get on our store
   // private idChangeSub: Subscription;
 
-  constructor(private slService: ShoppingListService,
-              private loggingService: LoggingService,
+  constructor(private loggingService: LoggingService,
               private store: Store<fromShoppingList.AppState>) {}
               // shoppingList - name we set up in the app module
               // {ingredients: Ingredient[]} - state data our global store hold in the reducer

@@ -75,7 +75,7 @@ export function shoppingtListReducer(state: State = initialState, action: Shoppi
             };
         // -----------------------------------DELETE ONE INGREDIENT-----------------------------------
 
-        // -----------------------------------START EDIT-----------------------------------
+        // ---- -------------------------------START EDIT-----------------------------------
         case ShoppingListActions.START_EDIT:
             return {
                 ...state,
