@@ -21,8 +21,8 @@ import { shoppingtListReducer } from './shopping-list/store (ngrx)/shooping-list
     HttpClientModule,
     SharedModule,
     CoreModule,
-    StoreModule.forRoot({shoppingList: shoppingtListReducer}) // The reducer is assigned as a value to the
-  ],                                                          // Shopping list key
+    StoreModule.forRoot({shoppingList: shoppingtListReducer}) // The reducer is assigned as a value to the Shopping list key
+  ],
   // All the services you want to provide (or use the providedin on the injectable)
   providers: [],
   // Which component is available right in that index html file

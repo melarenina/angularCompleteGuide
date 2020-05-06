@@ -1,7 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Ingredient } from '../shared/ingredient.model';
+import { Store } from '@ngrx/store';
+import { Subscription, Observable } from 'rxjs';
+
 import { ShoppingListService } from './shopping-list.service';
-import { Subscription } from 'rxjs';
+import { Ingredient } from '../shared/ingredient.model';
 import { LoggingService } from '../logging.service';
 
 @Component({
@@ -11,26 +13,31 @@ import { LoggingService } from '../logging.service';
 })
 export class ShoppingListComponent implements OnInit, OnDestroy {
 
-  ingredients: Ingredient [];
-  private idChangeSub: Subscription;
+  ingredients: Observable<{ingredients: Ingredient[]}>; // Because this is the data we get on our store
+  // private idChangeSub: Subscription;
 
   constructor(private slService: ShoppingListService,
-              private loggingService: LoggingService) { }
+              private loggingService: LoggingService,
+              private store: Store<{shoppingList: {ingredients: Ingredient[]}}>) {}
+              // shoppingList - name we set up in the app module
+              // {ingredients: Ingredient[]} - state data our global store hold in the reducer
+              // (it must have the same name as in the reducer)
 
   ngOnInit(): void {
-    this.ingredients = this.slService.getIngredients();
-    this.idChangeSub = this.slService.ingredientsChanged.subscribe(
-      (ingredients: Ingredient[]) => {
-        // Está passando a nova array de ingredientes vindo do service
-        // Para a atual array que está mostrando no template
-        this.ingredients = ingredients;
-      });
+    this.ingredients = this.store.select('shoppingList'); // select a slice of our state, returning an observable
+    // this.ingredients = this.slService.getIngredients();
+    // this.idChangeSub = this.slService.ingredientsChanged.subscribe(
+    //   (ingredients: Ingredient[]) => {
+    //     // Está passando a nova array de ingredientes vindo do service
+    //     // Para a atual array que está mostrando no template
+    //     this.ingredients = ingredients;
+    //   });
 
     this.loggingService.printLog('Hello from Shopping List component ngOnInit');
   }
 
   ngOnDestroy(): void {
-    this.idChangeSub.unsubscribe();
+    // this.idChangeSub.unsubscribe();
   }
 
   onEditItem(index: number){

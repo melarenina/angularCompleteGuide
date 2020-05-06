@@ -22,6 +22,8 @@ export function shoppingtListReducer(state = initialState, action: ShoppingListA
                 // Adding the old ingredients to keep them in the array and adding the new one
                 ingredients: [...state.ingredients, action.payload]
             };
+        default:
+            return state;
     }
 }
 
