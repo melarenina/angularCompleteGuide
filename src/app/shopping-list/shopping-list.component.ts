@@ -25,6 +25,8 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.ingredients = this.store.select('shoppingList'); // select a slice of our state, returning an observable
+
+    // this.store.select('shoppingList').subscribe();
     // this.ingredients = this.slService.getIngredients();
     // this.idChangeSub = this.slService.ingredientsChanged.subscribe(
     //   (ingredients: Ingredient[]) => {
