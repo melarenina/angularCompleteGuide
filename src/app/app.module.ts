@@ -7,7 +7,8 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core.module';
-import { LoggingService } from './logging.service';
+import { StoreModule } from '@ngrx/store';
+import { shoppingtListReducer } from './shopping-list/store (ngrx)/shooping-list.reducer';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { LoggingService } from './logging.service';
     HttpClientModule,
     SharedModule,
     CoreModule,
-  ],
+    StoreModule.forRoot({shoppingList: shoppingtListReducer}) // The reducer is assigned as a value to the
+  ],                                                          // Shopping list key
   // All the services you want to provide (or use the providedin on the injectable)
   providers: [],
   // Which component is available right in that index html file

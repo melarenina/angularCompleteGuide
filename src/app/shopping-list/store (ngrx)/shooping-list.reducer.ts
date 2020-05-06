@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 
 import { Ingredient } from '../../shared/ingredient.model';
-import { ADD_INGREDIENT } from './shopping-list.actions';
+import * as ShoppingListActions from './shopping-list.actions';
 
 const initialState = {
     ingredients: [
@@ -11,16 +11,16 @@ const initialState = {
 };
 
 // If the state is null, or not passed, it will get the initalState value
-export function shoppintListReducer(state = initialState, action: Action){
+export function shoppingtListReducer(state = initialState, action: ShoppingListActions.AddIngredient){
     // Checking what is the type of action
     switch (action.type){
-        case ADD_INGREDIENT:
+        case ShoppingListActions.ADD_INGREDIENT:
             // Returning a new object to replate the old state
             return {
                 // To not lose the old data, we're copying it using the '...state'
                 ...state,
                 // Adding the old ingredients to keep them in the array and adding the new one
-                ingredients: [...state.ingredients, action]
+                ingredients: [...state.ingredients, action.payload]
             };
     }
 }
