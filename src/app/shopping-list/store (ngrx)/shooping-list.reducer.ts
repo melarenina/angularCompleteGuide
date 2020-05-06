@@ -1,17 +1,27 @@
-import { Action } from '@ngrx/store';
-
 import { Ingredient } from '../../shared/ingredient.model';
 import * as ShoppingListActions from './shopping-list.actions';
 
-const initialState = {
+export interface AppState{
+    shoppingList: State;
+}
+
+export interface State {
+    ingredients: Ingredient[];
+    editedIngredient: Ingredient;
+    editedIngredientIndex: number;
+}
+
+const initialState: State = {
     ingredients: [
         new Ingredient('Apples', 5),
         new Ingredient('Tomatos', 10),
-    ]
+    ],
+    editedIngredient: null,
+    editedIngredientIndex: -1
 };
 
 // If the state is null, or not passed, it will get the initalState value
-export function shoppingtListReducer(state = initialState, action: ShoppingListActions.ShoppingListActions){
+export function shoppingtListReducer(state: State = initialState, action: ShoppingListActions.ShoppingListActions){
     // Checking what is the type of action
     switch (action.type){
         // -----------------------------------ADD ONE INGREDIENT-----------------------------------
