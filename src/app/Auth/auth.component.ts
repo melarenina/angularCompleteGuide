@@ -1,11 +1,14 @@
 import { Component, ComponentFactoryResolver, ViewChild, OnDestroy } from '@angular/core';
 import { NgForm, Form } from '@angular/forms';
-
+import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+
 import { AlertComponent } from '../shared/alert.component';
 import { PlaceHolderDirective } from '../shared/placeholder/placeholder.directive';
 import { AuthService, AuthResponseData } from './auth.service';
+import * as fromApp from '../store/app.reducer';
+import * as AuthActions from './store (NgRx)/auth.actions';
 
 @Component({
     selector: 'app-auth',
@@ -23,7 +26,8 @@ export class AuthComponent implements OnDestroy{
 
     constructor(private authService: AuthService,
                 private router: Router,
-                private componentFactoryResolver: ComponentFactoryResolver){}
+                private componentFactoryResolver: ComponentFactoryResolver,
+                private store: Store<fromApp.AppState>){}
                 // Component factory allows us to get access to the component factory, in which we pass the
                 // component we want to have access, so that angular creates it for us
 
@@ -65,7 +69,8 @@ export class AuthComponent implements OnDestroy{
         this.isLoading = true;
 
         if (this.isLoginMode){
-            authObservable = this.authService.login(email, password);
+            this.store.dispatch(new AuthActions.LoginStart({email, password}));
+            // authObservable = this.authService.login(email, password);
         }else{
             authObservable = this.authService.signUp(email, password);
         }
