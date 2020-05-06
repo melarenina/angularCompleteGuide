@@ -32,51 +32,9 @@ export class AuthService{
                 private router: Router,
                 private store: Store<fromApp.AppState>){}
 
-    signUp(email: string, password: string){
-        return this.http.post<AuthResponseData>(
-            'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + environment.firebaseAPIKey,
-            {
-                email,
-                password,
-                returnSecureToken: true
-            }
-        ).pipe(catchError(this.handleError), // Tap allows us to perform some action, without changing the response.
-            tap(resData => {                // Just runs some code with the data you get back from the observable
-                this.handleAuthentication(
-                    resData.email,
-                    resData.localId,
-                    resData.idToken,
-                    +resData.expiresIn
-                );
-            })
-        );
-    }
-
-    login(email: string, password: string){
-        return this.http.post<AuthResponseData>(
-            'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + environment.firebaseAPIKey,
-            {
-                email,
-                password,
-                returnSecureToken: true
-            }
-        ).pipe(catchError(this.handleError), // Tap allows us to perform some action, without changing the response.
-            tap(resData => {                // Just runs some code with the data you get back from the observable
-                this.handleAuthentication(
-                    resData.email,
-                    resData.localId,
-                    resData.idToken,
-                    +resData.expiresIn
-                );
-            })
-        );
-    }//
-
     logout(){
         // Passgin an null "user"
         // this.user.next(null);
-        this.store.dispatch(new AuthActions.Logout());
-        this.router.navigate(['/auth']);
 
         // Cleaning the user from the local storage
         localStorage.removeItem('userData');
@@ -130,60 +88,6 @@ export class AuthService{
         this.tokenExpirationTimer = setTimeout(() => {
             this.logout();
         } , expirationDuration);
-    }
-
-    private handleAuthentication(email: string, userId: string, token: string, expiresIn: number){
-        // The expires in comes in seconds. So we add it to the time we have now, and multiply for 1000
-        // So that we can get the expiration date in miliseconds, conerted to a date because of the new date
-        const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
-        const user = new User(
-            email,
-            userId,
-            token,
-            expirationDate
-        );
-        // this.user.next(user);
-        this.store.dispatch(new AuthActions.AuthenticateSuccess(
-            {
-                email,
-                userId,
-                token,
-                expirationDate
-            }
-        ));
-
-        // To start the counting of the token, passing the value in miliseconds
-        this.autoLogout(expiresIn * 1000);
-
-        // putting the user in the local storage of the browser
-        localStorage.setItem('userData', JSON.stringify(user));
-    }
-
-    private handleError(errorResponse: HttpErrorResponse){
-        let errorMessage = 'An unklnown error occurred!';
-
-        if (!errorResponse.error || !errorResponse.error.error){
-            return throwError(errorMessage);
-        }
-
-        switch (errorResponse.error.error.message) {
-
-            case 'EMAIL_EXISTS':
-                errorMessage = 'This email already exists!';
-                break;
-
-            case 'EMAIL_NOT_FOUND':
-                errorMessage = 'Invalid email.';
-                break;
-
-            case 'INVALID_PASSWORD':
-                errorMessage = 'Incorrect Password.';
-                break;
-
-        }
-
-        return throwError(errorMessage);
-
     }
 
 }
