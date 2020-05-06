@@ -24,7 +24,7 @@ export interface AuthResponseData{
 
 export class AuthService{
     // BehaviorSubject allows us to get access to the current user, even after that user has been emitted
-    user = new BehaviorSubject<User>(null);
+    // user = new BehaviorSubject<User>(null);
 
     private tokenExpirationTimer: any;
 
