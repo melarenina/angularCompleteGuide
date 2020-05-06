@@ -25,6 +25,12 @@ export class AuthEffects{
                 private http: HttpClient,
                 private router: Router){}
 
+    @Effect()
+    authSignUp = this.actions$.pipe(
+        ofType(AuthActions.SIGNUP_START),
+        switchMap
+    );
+
     @Effect() // This effect returns a new action
     authLogin = this.actions$.pipe(
         ofType(AuthActions.LOGIN_START), // Only continue this if the action if of type LOGIN_START
@@ -38,7 +44,7 @@ export class AuthEffects{
                 }
             ).pipe(map(resData => {
                 const expirationDate = new Date(new Date().getTime() + +resData.expiresIn * 1000);
-                return new AuthActions.Login({
+                return new AuthActions.AuthenticateSuccess({
                     email: resData.email,
                     userId: resData.localId,
                     token: resData.idToken,
@@ -49,7 +55,7 @@ export class AuthEffects{
                 let errorMessage = 'An unknown error occurred!';
 
                 if (!errorResponse.error || !errorResponse.error.error){
-                    return of(new AuthActions.LoginFail(errorMessage));
+                    return of(new AuthActions.AuthenticateFail(errorMessage));
                 }
 
                 switch (errorResponse.error.error.message) {
@@ -69,7 +75,7 @@ export class AuthEffects{
                 }
 
                 // returns a new observable
-                return of(new AuthActions.LoginFail(errorMessage));
+                return of(new AuthActions.AuthenticateFail(errorMessage));
             })
             );
         })
@@ -77,7 +83,7 @@ export class AuthEffects{
 
     @Effect({dispatch: false}) // This effect doesn't return a new action
     authSuccess = this.actions$.pipe(
-        ofType(AuthActions.LOGIN),
+        ofType(AuthActions.AUTHENTICATE_SUCCESS),
         tap(() => {
             this.router.navigate(['/']);
         })
