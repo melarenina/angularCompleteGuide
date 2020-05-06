@@ -46,17 +46,19 @@ export function shoppingtListReducer(state: State = initialState, action: Shoppi
         // -----------------------------------UPDATE ONE INGREDIENT-----------------------------------
         case ShoppingListActions.UPDATE_INGREDIENT:
 
-            const ingredient = state.ingredients[action.payload.index];
+            const ingredient = state.ingredients[state.editedIngredientIndex];
             const updatedIngredient = {
                 ...ingredient,
-                ...action.payload.newIngredient
+                ...action.payload
             };
             const updatedIngredients = [...state.ingredients];
-            updatedIngredients[action.payload.index] = updatedIngredient; // Replacing the old ingredient with the new one
+            updatedIngredients[state.editedIngredientIndex] = updatedIngredient; // Replacing the old ingredient with the new one
 
             return {
                 ...state, // To add the elements of the payload array, and not the array it self
-                ingredients: updatedIngredients
+                ingredients: updatedIngredients,
+                editedIngredientIndex: -1,
+                editedIngredient: null
             };
         // -----------------------------------UPDATE ONE INGREDIENT-----------------------------------
 
@@ -66,8 +68,10 @@ export function shoppingtListReducer(state: State = initialState, action: Shoppi
                 ...state, // Filter always return a copy of array, run a function on every element, and the element
                 // Where the condition is true, is added to that array
                 ingredients: state.ingredients.filter((ig, igIndex) => {
-                    return igIndex !== action.payload; // This will return a new array without that element
-                })
+                    return igIndex !== state.editedIngredientIndex; // This will return a new array without that element
+                }),
+                editedIngredientIndex: -1,
+                editedIngredient: null
             };
         // -----------------------------------DELETE ONE INGREDIENT-----------------------------------
 

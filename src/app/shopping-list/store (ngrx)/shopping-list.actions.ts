@@ -29,15 +29,13 @@ export class UpdateIngredient implements Action{
 
     readonly type = UPDATE_INGREDIENT; // Identifier of the action
 
-    constructor(public payload: {index: number, newIngredient: Ingredient}){}
+    constructor(public payload: Ingredient){}
 
 }
 
 export class DeleteIngredient implements Action{
 
     readonly type = DELETE_INGREDIENT; // Identifier of the action
-
-    constructor(public payload: number){}
 
 }
 
