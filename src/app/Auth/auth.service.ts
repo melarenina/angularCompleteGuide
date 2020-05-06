@@ -70,7 +70,7 @@ export class AuthService{
                 );
             })
         );
-    }
+    }//
 
     logout(){
         // Passgin an null "user"
