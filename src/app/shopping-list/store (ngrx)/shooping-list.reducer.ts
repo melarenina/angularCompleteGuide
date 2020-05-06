@@ -11,7 +11,7 @@ const initialState = {
 };
 
 // If the state is null, or not passed, it will get the initalState value
-export function shoppingtListReducer(state = initialState, action: ShoppingListActions.AddIngredient){
+export function shoppingtListReducer(state = initialState, action: ShoppingListActions.ShoppingListActions){
     // Checking what is the type of action
     switch (action.type){
         case ShoppingListActions.ADD_INGREDIENT:
@@ -22,6 +22,13 @@ export function shoppingtListReducer(state = initialState, action: ShoppingListA
                 // Adding the old ingredients to keep them in the array and adding the new one
                 ingredients: [...state.ingredients, action.payload]
             };
+
+        case ShoppingListActions.ADD_INGREDIENTS:
+            return {
+                ...state, // To add the elements of the payload array, and not the array it self
+                ingredients: [...state.ingredients, ...action.payload]
+            };
+
         default:
             return state;
     }
