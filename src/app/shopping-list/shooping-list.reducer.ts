@@ -1,4 +1,5 @@
 import { Ingredient } from '../shared/ingredient.model';
+import { Action } from '@ngrx/store';
 
 const initialState = {
     ingredients: [
@@ -8,6 +9,19 @@ const initialState = {
 };
 
 // If the state is null, or not passed, it will get the initalState value
-export function shoppintListReducer(state = initialState, action){
-
+export function shoppintListReducer(state = initialState, action: Action){
+    // Checking what is the type of action
+    switch (action.type){
+        case 'ADD_INGREDIENT':
+            // Returning a new object to replate the old state
+            return {
+                // To not lose the old data, we're copying it using the '...state'
+                ...state,
+                // Adding the old ingredients to keep them in the array
+                ingredients: [...state.ingredients, action]
+            };
+    }
 }
+
+// Actions are everything that change the state of some property, like add a new ingredient
+// Getting an ingredient doesn't change the the state of the property, only returns its current one
