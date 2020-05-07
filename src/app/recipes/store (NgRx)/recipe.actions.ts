@@ -3,9 +3,14 @@ import { Recipe } from '../recipe.model';
 
 export const SET_RECIPES = '[Recipes] Set Recipes';
 export const FETCH_RECIPES = '[Recipes] Fetch Recipes';
+export const STORE_RECIPES = '[Recipes] Store Recipes';
 export const ADD_RECIPE = '[Recipes] Add Recipe';
 export const UPDATE_RECIPE = '[Recipes] Update Recipe';
 export const DELETE_RECIPE = '[Recipes] Delete Recipe';
+
+export class StoreRecipes implements Action{
+    readonly type = STORE_RECIPES;
+}
 
 export class SetRecipes implements Action{
     readonly type = SET_RECIPES;
@@ -41,4 +46,5 @@ export type RecipesActions =
     | FetchRecipes
     | AddRecipe
     | UpdateRecipe
-    | DeleteRecipe;
+    | DeleteRecipe
+    | StoreRecipes;
