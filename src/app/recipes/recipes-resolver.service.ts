@@ -6,7 +6,8 @@ import { Store } from '@ngrx/store';
 import * as fromApp from '../store/app.reducer';
 import * as RecipeActions from '../recipes/store (NgRx)/recipe.actions';
 import { Actions, ofType } from '@ngrx/effects';
-import { take } from 'rxjs/operators';
+import { take, map, switchMap } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Injectable({providedIn: 'root'})
 
@@ -21,15 +22,22 @@ export class RecipesResolverService implements Resolve<Recipe[]>{
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot){
         const recipes = this.recipesService.getRecipes();
-
-        // Checking if there is any recipe loaded
-        if (recipes.length === 0){
-            this.store.dispatch(new RecipeActions.FetchRecipes());
-            return this.actions$.pipe(
-                ofType(RecipeActions.SET_RECIPES), take(1)
-            );
-        }else{
-            return recipes;
-        }
+        return this.store.select('recipes').pipe(
+            take(1),
+            map(recipesState => {
+                return recipesState.recipes;
+            }),
+            // tslint:disable-next-line:no-shadowed-variable
+            switchMap(recipes => {
+                if (recipes.length === 0){
+                    this.store.dispatch(new RecipeActions.FetchRecipes());
+                    return this.actions$.pipe(
+                        ofType(RecipeActions.SET_RECIPES), take(1)
+                    );
+                }else{
+                    return of(recipes);
+                }
+            })
+        );
     }
 }
