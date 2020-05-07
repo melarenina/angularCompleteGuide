@@ -6,7 +6,6 @@ import { map } from 'rxjs/operators';
 
 // importing the model to be used as a type below
 import { Recipe } from '../recipe.model';
-import { RecipeService } from 'src/app/recipes/recipe.service';
 import * as fromApp from '../../store/app.reducer';
 
 @Component({
