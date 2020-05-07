@@ -13,6 +13,7 @@ import { StoreModule } from '@ngrx/store';
 import * as fromApp from './store/app.reducer';
 import { AuthEffects } from './Auth/store (NgRx)/auth.effects';
 import { environment } from 'src/environments/environment';
+import { RecipeEffects } from './recipes/store (NgRx)/recipe.effects';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { environment } from 'src/environments/environment';
     CoreModule,
     StoreModule.forRoot(fromApp.appReducer),
     StoreDevtoolsModule.instrument({logOnly: environment.production}),
-    EffectsModule.forRoot([AuthEffects])
+    EffectsModule.forRoot([AuthEffects, RecipeEffects])
   ],
   // All the services you want to provide (or use the providedin on the injectable)
   providers: [],
